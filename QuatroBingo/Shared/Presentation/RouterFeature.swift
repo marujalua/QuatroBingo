@@ -30,9 +30,6 @@ struct RouterFeature {
             case let .detail(id):
                 state.path.append(.detail(DetailFeature.State(id: id)))
                 return .none
-            case .path(.element(id: _, action: .detail(.testingNav))):
-                state.path.append(.detail(.init(id: "iddd")))
-                return .none
             default:
                 return .none
             }
