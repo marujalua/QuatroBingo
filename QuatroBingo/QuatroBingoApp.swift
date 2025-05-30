@@ -15,12 +15,11 @@ struct QuatroBingoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RouterView {
-                HomeView(store: Store(initialState: HomeFeature.State()) {
-                    HomeFeature()
-                  }
-                )
-            }
+            RouterView(
+                store: Store(initialState: RouterFeature.State(), reducer: {
+                    RouterFeature()
+                })
+            )
         }
     }
 }

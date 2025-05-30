@@ -22,6 +22,7 @@ struct HomeFeature {
         case requestBingo
         case loadBingos([BingoViewModel])
         case requestError
+        case bingoTapped(id: String)
     }
 
     var body: some Reducer<State, Action> {
@@ -29,13 +30,11 @@ struct HomeFeature {
             switch action {
             case .requestBingo:
                 state.status = .loading
-                return .run { send in
-                    do {
-                        let bingos = try await interactor.fetchAvailableBingo()
-                        await send(.loadBingos(bingos))
-                    } catch {
-                        await send(.requestError)
-                    }
+                return .run(priority: .high) { send in
+                    let bingos = try await interactor.fetchAvailableBingo()
+                    await send(.loadBingos(bingos))
+                } catch: { _, send in
+                    await send(.requestError)
                 }
             case .loadBingos(let bingos):
                 state.status = .success
@@ -43,6 +42,8 @@ struct HomeFeature {
                 return .none
             case .requestError:
                 state.status = .failure
+                return .none
+            default:
                 return .none
             }
         }

@@ -8,14 +8,17 @@ import ComposableArchitecture
 import SwiftUI
 
 struct HomeView: View {
-    let store: StoreOf<HomeFeature>
+    @State var store: StoreOf<HomeFeature>
+    let router: StoreOf<RouterFeature>
 
     var body: some View {
         StatusView(status: store.status) {
             List(store.bingos) { bingo in
                 HomeBingoItem(bingo: bingo)
+                    .onTapGesture {
+                        router.send(.detail(id: bingo.id))
+                    }
             }
-            .listStyle(.plain)
         } failure: {
             Text("Failure")
         }
