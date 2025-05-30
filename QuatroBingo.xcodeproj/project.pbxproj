@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5B2418D22DE9530D002E8755 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2418D12DE9530D002E8755 /* ComposableArchitecture */; };
+		5B2418D52DE953E4002E8755 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2418D42DE953E4002E8755 /* FirebaseCore */; };
+		5B2418D72DE953E4002E8755 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2418D62DE953E4002E8755 /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5B2418B42DE9520C002E8755 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +58,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B2418D52DE953E4002E8755 /* FirebaseCore in Frameworks */,
+				5B2418D22DE9530D002E8755 /* ComposableArchitecture in Frameworks */,
+				5B2418D72DE953E4002E8755 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +121,9 @@
 			);
 			name = QuatroBingo;
 			packageProductDependencies = (
+				5B2418D12DE9530D002E8755 /* ComposableArchitecture */,
+				5B2418D42DE953E4002E8755 /* FirebaseCore */,
+				5B2418D62DE953E4002E8755 /* FirebaseFirestore */,
 			);
 			productName = QuatroBingo;
 			productReference = 5B2418A32DE9520A002E8755 /* QuatroBingo.app */;
@@ -195,6 +207,10 @@
 			);
 			mainGroup = 5B24189A2DE9520A002E8755;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5B2418D02DE9530D002E8755 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				5B2418D32DE953E4002E8755 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5B2418A42DE9520A002E8755 /* Products */;
 			projectDirPath = "";
@@ -558,6 +574,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5B2418D02DE9530D002E8755 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.20.2;
+			};
+		};
+		5B2418D32DE953E4002E8755 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.13.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5B2418D12DE9530D002E8755 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2418D02DE9530D002E8755 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		5B2418D42DE953E4002E8755 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2418D32DE953E4002E8755 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		5B2418D62DE953E4002E8755 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2418D32DE953E4002E8755 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5B24189B2DE9520A002E8755 /* Project object */;
 }
