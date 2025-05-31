@@ -17,19 +17,8 @@ protocol DetailRepository: Actor {
 
 actor DetailRepositoryImpl: DetailRepository {
     @Dependency(Firestore.self) private var firebase
-    private lazy var decoder: Firestore.Decoder = {
-        let d = Firestore.Decoder()
-        d.dateDecodingStrategy = .iso8601
-        d.keyDecodingStrategy = .convertFromSnakeCase
-        return d
-    }()
-
-    private lazy var encoder: Firestore.Encoder = {
-        let e = Firestore.Encoder()
-        e.dateEncodingStrategy = .iso8601
-        e.keyEncodingStrategy = .convertToSnakeCase
-        return e
-    }()
+    @Dependency(Firestore.Encoder.self) private var encoder
+    @Dependency(Firestore.Decoder.self) private var decoder
 
 
     func retrieveMatch(for id: String, at bingo: String) async throws -> Match {
@@ -70,7 +59,6 @@ actor DetailRepositoryImpl: DetailRepository {
         static var bingo: String { "bingos" }
         static var matches: String { "matches" }
     }
-
 }
 
 enum DetailRepositoryKey: DependencyKey {

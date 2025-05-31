@@ -16,6 +16,7 @@ struct BoardFeature {
     enum Action {
         case loadTable(BingoTable)
         case toggleWordAt(x: Int, y: Int)
+        case updateDataDelegate(table: BingoTable?, x: Int, y: Int)
     }
 
     var body: some ReducerOf<Self> {
@@ -28,6 +29,8 @@ struct BoardFeature {
                 var word = state.table?[x, y]
                 word?.isSelected.toggle()
                 state.table?[x, y] = word
+                return .send(.updateDataDelegate(table: state.table, x: x, y: y))
+            default:
                 return .none
             }
         }

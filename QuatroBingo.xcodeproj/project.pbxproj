@@ -10,6 +10,7 @@
 		5B2418D22DE9530D002E8755 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2418D12DE9530D002E8755 /* ComposableArchitecture */; };
 		5B2418D52DE953E4002E8755 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2418D42DE953E4002E8755 /* FirebaseCore */; };
 		5B2418D72DE953E4002E8755 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5B2418D62DE953E4002E8755 /* FirebaseFirestore */; };
+		5B375D5D2DEBA22200373AB3 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 5B375D5C2DEBA22200373AB3 /* FirebaseFirestoreCombine-Community */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B2418D52DE953E4002E8755 /* FirebaseCore in Frameworks */,
+				5B375D5D2DEBA22200373AB3 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				5B2418D22DE9530D002E8755 /* ComposableArchitecture in Frameworks */,
 				5B2418D72DE953E4002E8755 /* FirebaseFirestore in Frameworks */,
 			);
@@ -87,6 +89,7 @@
 				5B2418A52DE9520A002E8755 /* QuatroBingo */,
 				5B2418B62DE9520C002E8755 /* QuatroBingoTests */,
 				5B2418C02DE9520C002E8755 /* QuatroBingoUITests */,
+				5B375D5B2DEBA22200373AB3 /* Frameworks */,
 				5B2418A42DE9520A002E8755 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,6 +102,13 @@
 				5B2418BD2DE9520C002E8755 /* QuatroBingoUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5B375D5B2DEBA22200373AB3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +134,7 @@
 				5B2418D12DE9530D002E8755 /* ComposableArchitecture */,
 				5B2418D42DE953E4002E8755 /* FirebaseCore */,
 				5B2418D62DE953E4002E8755 /* FirebaseFirestore */,
+				5B375D5C2DEBA22200373AB3 /* FirebaseFirestoreCombine-Community */,
 			);
 			productName = QuatroBingo;
 			productReference = 5B2418A32DE9520A002E8755 /* QuatroBingo.app */;
@@ -609,6 +620,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5B2418D32DE953E4002E8755 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		5B375D5C2DEBA22200373AB3 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B2418D32DE953E4002E8755 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

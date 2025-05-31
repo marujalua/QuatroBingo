@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct Player: Codable {
+struct Player: Codable, Equatable {
     let id: String
     let name: String
     var score: Int

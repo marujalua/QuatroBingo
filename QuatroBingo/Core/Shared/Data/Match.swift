@@ -6,12 +6,12 @@
 //
 import Foundation
 
-struct Match: Codable {
-    enum Status: String, Codable {
+struct Match: Codable, Equatable {
+    enum Status: String, Codable, Equatable {
         case created, running, finished
     }
 
-    struct Log: Codable {
+    struct Log: Codable, Equatable {
         let value: String
         let time: Date
     }

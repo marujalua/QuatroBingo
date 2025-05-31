@@ -11,47 +11,23 @@ struct BingoView: View {
     @State var store: StoreOf<BingoFeature>
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                ScrollView {
-                    LazyVStack(alignment: .leading) {
-                        ForEach(0..<10) { i in
-                            HStack(alignment: .center) {
-                                Text("🥇")
-                                Spacer().frame(width: 8)
-                                Text("Paula selecionou uma palavra \(i % 2 == 0 ? "que tem no maximo" : "")")
-                                    .foregroundStyle(Color.black)
-                                    .font(.system(size: 12))
-                            }
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(Color.white.opacity(0.4))
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                        }
-                    }
-                }
-                HStack {
-                    Text("WWDC")
-                        .font(.system(size: 36))
-                        .fontWeight(.black)
-                        .foregroundStyle(.white)
-
-                    Spacer().frame(width: 16)
-
-                    Button {} label: {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    .tint(.white)
-                }
-            }
-            Spacer()
-
-            BoardView(
-                store: store.scope(
-                    state: \.board,
-                    action: \.board
+        StatusView(status: store.status) {
+            HStack {
+                LogView(
+                    store: store.scope(state: \.log, action: \.log)
                 )
-            )
+                Spacer()
+                BoardView(
+                    store: store.scope(
+                        state: \.board,
+                        action: \.board
+                    )
+                )
+            }
+        } failure: {
+            ErrorView {
+                store.send(.onAppear)
+            }
         }
         .padding()
         .background(
@@ -62,6 +38,9 @@ struct BingoView: View {
             )
             )
         .toolbarVisibility(.hidden, for: .navigationBar)
+        .onAppear {
+            store.send(.onAppear)
+        }
     }
 }
 
