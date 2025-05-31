@@ -9,5 +9,5 @@ protocol Worker: Actor {
     associatedtype Input
     associatedtype Output
 
-    func execute(with: Input) async throws -> Output
+    func execute(with input: Input) async throws -> Output
 }

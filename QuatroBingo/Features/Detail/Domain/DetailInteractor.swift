@@ -36,7 +36,7 @@ actor DetailInteractorImpl: DetailInteractor {
             let match = Match(
                 status: .created,
                 name: bingoName,
-                players: [player],
+                players: [player.id: player],
                 logs: []
             )
             try await repository.createMatch(match, for: roomId, at: bingo)

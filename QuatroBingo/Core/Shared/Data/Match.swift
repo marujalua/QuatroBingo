@@ -18,6 +18,6 @@ struct Match: Codable, Equatable {
 
     var status: Status
     let name: String
-    var players: [Player]
+    var players: [String: Player]
     var logs: [Log]
 }

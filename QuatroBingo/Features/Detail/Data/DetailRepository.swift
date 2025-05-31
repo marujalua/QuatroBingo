@@ -43,7 +43,7 @@ actor DetailRepositoryImpl: DetailRepository {
 
     func insertPlayer(_ player: Player, into matchId: String, at bingo: String) async throws {
         var match = try await retrieveMatch(for: matchId, at: bingo)
-        match.players.append(player)
+        match.players[player.id] = player
         try await createMatch(match, for: matchId, at: bingo)
     }
 

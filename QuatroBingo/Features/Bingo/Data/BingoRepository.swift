@@ -13,6 +13,7 @@ import Dependencies
 protocol BingoRepository: Actor {
     func retrieveBingo(for id: String) async throws -> Bingo
     func watchMatch(bingo: String, match: String) async -> any AsyncSequence<Match, Error>
+    func updateMatch(ids: IDs, match: Match) async throws
 }
 
 actor BingoRepositoryImpl: BingoRepository {
@@ -41,6 +42,15 @@ actor BingoRepositoryImpl: BingoRepository {
             .getDocument()
 
         return try reference.data(as: Bingo.self, decoder: decoder)
+    }
+
+    func updateMatch(ids: IDs, match: Match) async throws {
+        try await firestore
+            .collection(Constants.bingo)
+            .document(ids.bingo)
+            .collection(Constants.matches)
+            .document(ids.match)
+            .setDataAsync(from: match, encoder: encoder)
     }
 
     enum Constants {

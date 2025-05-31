@@ -97,6 +97,19 @@ struct BingoTable: Equatable {
         }
         return diagonal
     }
+
+    var allRows: [[Word]]? {
+        table
+    }
+
+    var allColumns: [[Word]]? {
+        var columns: [[Word]] = []
+        for i in 0 ..< tableSize {
+            guard let column = self[columnAt: i] else { return nil }
+            columns.append(column)
+        }
+        return columns
+    }
 }
 
 extension BingoTable {

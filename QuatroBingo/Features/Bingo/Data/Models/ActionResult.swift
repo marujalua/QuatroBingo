@@ -7,6 +7,7 @@
 
 enum ActionResult {
     case selectAWord
+    case unselectAWord
     case finishedARow
     case finishedAColumn
     case finishedADiagonal

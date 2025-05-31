@@ -18,12 +18,6 @@ struct BingoFeature {
         var board = BoardFeature.State()
         var log = LogFeature.State(name: "", logs: [])
         var status: Status = .loading
-
-        struct IDs: Equatable {
-            let bingo: String
-            let player: String
-            let match: String
-        }
     }
 
     enum Action {
@@ -64,8 +58,11 @@ struct BingoFeature {
             case let .board(.updateDataDelegate(table, x, y)):
                 guard let table else { return .none }
                 return updateMatchEffect(
-                    match: Match(status: .running, name: state.log.name, players: [], logs: state.log.logs),
-                    table: table, point: CGPoint(x: x, y: y))
+                    match: Match(status: .running, name: state.log.name, players: [:], logs: state.log.logs),
+                    table: table,
+                    point: CGPoint(x: x, y: y),
+                    ids: state.ids
+                )
             default:
                 return .none
             }
@@ -94,9 +91,14 @@ struct BingoFeature {
         }
     }
 
-    private func updateMatchEffect(match: Match, table: BingoTable, point: CGPoint) -> EffectOf<BingoFeature> {
-        return .run {[match, table, point] send in
-            try await bingoInteractor.updateMatch(match: match, table: table, actionPoint: point)
+    private func updateMatchEffect(match: Match, table: BingoTable, point: CGPoint, ids: IDs) -> EffectOf<BingoFeature> {
+        return .run {[match, table, point, ids] send in
+            try await bingoInteractor.updateMatch(
+                match: match,
+                table: table,
+                actionPoint: point,
+                ids: ids
+            )
         }
     }
 }
