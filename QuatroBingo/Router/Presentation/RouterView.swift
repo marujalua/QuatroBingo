@@ -23,6 +23,8 @@ struct RouterView: View {
             switch store.case {
             case .detail(let store):
                 DetailView(store: store)
+            case .bingo(let store):
+                BingoView(store: store)
             }
         }
     }
