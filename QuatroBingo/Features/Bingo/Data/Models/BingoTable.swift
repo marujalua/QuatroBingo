@@ -4,6 +4,7 @@
 //
 //  Created by Lua Ferreira de Carvalho on 31/05/25.
 //
+import Foundation
 
 struct BingoTable: Equatable {
     private(set) var table: [[Word]]
