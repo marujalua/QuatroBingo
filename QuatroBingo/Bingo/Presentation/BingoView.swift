@@ -4,10 +4,12 @@
 //
 //  Created by Lua Ferreira de Carvalho on 29/05/25.
 //
-
+import ComposableArchitecture
 import SwiftUI
 
 struct BingoView: View {
+    @State var store: StoreOf<BingoFeature>
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -78,6 +80,13 @@ struct BingoView: View {
 
 #Preview {
     NavigationStack {
-        BingoView()
+        BingoView(
+            store: Store(
+                initialState: BingoFeature.State(
+                    ids: .init(bingo: "", player: "", match: "")
+                ),
+                reducer: BingoFeature.init
+            )
+        )
     }
 }

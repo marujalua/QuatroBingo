@@ -27,7 +27,6 @@ struct StepperFeature {
         case roomIdDidChange(String)
         case createMatch
         case searchMatch
-        case enterMatch
         case back
     }
 
@@ -47,8 +46,6 @@ struct StepperFeature {
             case .back:
                 state.roomId = ""
                 state.step = .name
-            case .enterMatch:
-                break
             }
             return .none
         }

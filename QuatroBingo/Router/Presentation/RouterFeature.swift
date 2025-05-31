@@ -12,6 +12,7 @@ struct RouterFeature {
     @Reducer
     enum Path {
         case detail(DetailFeature)
+        case bingo(BingoFeature)
     }
 
     @ObservableState
@@ -29,6 +30,9 @@ struct RouterFeature {
             switch action {
             case let .detail(id):
                 state.path.append(.detail(DetailFeature.State(id: id)))
+                return .none
+            case let .path(.element(id, action: .detail(.goToMatch(bingo, match, player)))):
+                state.path.append(.bingo(.init(ids: .init(bingo: bingo, player: player, match: match))))
                 return .none
             default:
                 return .none
