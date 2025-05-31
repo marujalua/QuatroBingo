@@ -31,7 +31,7 @@ actor DetailInteractorImpl: DetailInteractor {
         let player = Player(id: uuid().uuidString, name: playerName, score: 0)
 
         if match != nil {
-            try await repository.insertPlayer(player, into: playerName, at: bingo)
+            try await repository.insertPlayer(player, into: roomId, at: bingo)
         } else {
             let match = Match(
                 status: .created,
@@ -47,9 +47,21 @@ actor DetailInteractorImpl: DetailInteractor {
 
     func getBingo(for id: String) async throws -> IdentifiableModel<Bingo> {
         let bingo = try await repository.retrieveBingo(for: id)
-        let words = Array(bingo.model.words.prefix(9))
+        let index = getCorrectPrefixCount(for: bingo.model.words)
+        let words = Array(bingo.model.words.prefix(index))
 
         return IdentifiableModel(id: bingo.id, model: Bingo(name: bingo.model.name, words: words))
+    }
+
+    private func getCorrectPrefixCount(for words: [String]) -> Int {
+        var index = words.count
+        guard index > 3 else { return index }
+
+        while (index % 3) != 0 {
+            index -= 1
+        }
+
+        return index
     }
 }
 
