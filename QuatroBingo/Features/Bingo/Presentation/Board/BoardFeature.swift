@@ -9,11 +9,27 @@ import ComposableArchitecture
 @Reducer
 struct BoardFeature {
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var table: BingoTable?
     }
 
     enum Action {
-        
+        case loadTable(BingoTable)
+        case toggleWordAt(x: Int, y: Int)
+    }
+
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case let .loadTable(table):
+                state.table = table
+                return .none
+            case let .toggleWordAt(x, y):
+                var word = state.table?[x, y]
+                word?.isSelected.toggle()
+                state.table?[x, y] = word
+                return .none
+            }
+        }
     }
 }

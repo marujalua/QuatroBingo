@@ -45,26 +45,13 @@ struct BingoView: View {
                 }
             }
             Spacer()
-            Grid(alignment: .center, horizontalSpacing: 4, verticalSpacing: 4) {
-                ForEach(0 ..< 5) { _ in
-                    GridRow {
-                        ForEach(0 ..< 5) { i in
-                            VStack {
-                                Text("Textinho \(i % 2 == 0 ? "que tem no maximo" : "") 3 linhas no máximo")
-                                    .foregroundStyle(Color.white)
-                                    .lineLimit(3)
-                                    .fontDesign(.serif)
-                                    .font(.system(size: 10))
-                            }
-                            .padding(.horizontal, 6)
-                            .frame(width: 100, height: 70, alignment: .center)
-                            .background(Color.black.opacity(0.3))
-                            .clipShape(RoundedRectangle(cornerRadius: 6))
-                        }
-                    }
-                }
-            }
-            .gridCellUnsizedAxes(.horizontal)
+
+            BoardView(
+                store: store.scope(
+                    state: \.board,
+                    action: \.board
+                )
+            )
         }
         .padding()
         .background(
