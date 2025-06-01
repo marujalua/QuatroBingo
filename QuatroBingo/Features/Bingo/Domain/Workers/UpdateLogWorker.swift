@@ -7,6 +7,8 @@
 import Dependencies
 
 actor UpdateLogWorker: Worker {
+    @Dependency(\.date) private var currentDate
+
     struct Input {
         let player: Player
         let results: [ActionResult]
@@ -15,7 +17,28 @@ actor UpdateLogWorker: Worker {
     typealias Output = [Match.Log]
 
     func execute(with input: Input) async throws -> [Match.Log] {
-        []
+        input.results.map { result in
+            adapt(result, player: input.player)
+        }
+    }
+
+    private func adapt(_ input: ActionResult, player: Player) -> Match.Log {
+        let value: String = switch input {
+        case .selectAWord:
+            "marcou uma palavra."
+        case .unselectAWord:
+            "desmarcou uma palavra"
+        case .finishedARow:
+            "terminou uma linha"
+        case .finishedAColumn:
+            "terminou uma coluna"
+        case .finishedADiagonal:
+            "terminou uma diagonal"
+        case .calledBingo:
+            "bingou"
+        }
+
+        return Match.Log(value: "\(player.name) \(value)", time: currentDate())
     }
 }
 
@@ -27,5 +50,5 @@ extension DependencyValues {
     var updateLog: UpdateLogWorker {
         get { self[UpdateLogWorkerKey.self] }
         set { self[UpdateLogWorkerKey.self] = newValue }
-      }
+    }
 }

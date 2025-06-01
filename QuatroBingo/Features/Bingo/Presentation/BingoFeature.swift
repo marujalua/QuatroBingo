@@ -17,12 +17,14 @@ struct BingoFeature {
         let ids: IDs
         var board = BoardFeature.State()
         var log = LogFeature.State(name: "", logs: [])
+        var score = ScoreFeature.State(players: [:])
         var status: Status = .loading
     }
 
     enum Action {
         case board(BoardFeature.Action)
         case log(LogFeature.Action)
+        case score(ScoreFeature.Action)
         case updateStatus(Status)
         case onAppear
         case listenError
@@ -33,12 +35,14 @@ struct BingoFeature {
     var body: some ReducerOf<Self> {
         Scope(state: \.board, action: \.board) {
             BoardFeature()
-                .dependency(\.bingoInteractor, bingoInteractor)
         }
 
         Scope(state: \.log, action: \.log) {
             LogFeature()
-                .dependency(\.bingoInteractor, bingoInteractor)
+        }
+
+        Scope(state: \.score, action: \.score) {
+            ScoreFeature()
         }
 
         Reduce { state, action in
@@ -58,7 +62,7 @@ struct BingoFeature {
             case let .board(.updateDataDelegate(table, x, y)):
                 guard let table else { return .none }
                 return updateMatchEffect(
-                    match: Match(status: .running, name: state.log.name, players: [:], logs: state.log.logs),
+                    match: Match(status: .running, name: state.log.name, players: state.score.players, logs: state.log.logs),
                     table: table,
                     point: CGPoint(x: x, y: y),
                     ids: state.ids
@@ -75,6 +79,7 @@ struct BingoFeature {
 
             for try await match in sequence {
                 await send(.log(.updateLogs(match.logs)))
+                await send(.score(.updatePlayers(match.players)))
             }
         } catch: { _, send in
             await send(.listenError)

@@ -47,7 +47,7 @@ actor BingoInteractorImpl: BingoInteractor {
         let logsToAppended = try await updateLog.execute(with: .init(player: player, results: newLogsLoaded))
 
         var newMatch = match
-        newMatch.players[ids.player]?.score = newScoreLoaded
+        newMatch.players[ids.player]?.score = newScoreLoaded.total
         newMatch.logs.append(contentsOf: logsToAppended)
         newMatch.logs.sort { lhs, rhs in
             lhs.time > rhs.time

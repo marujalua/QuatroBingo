@@ -8,15 +8,33 @@ import Dependencies
 
 actor CalculateScoreWorker: Worker {
     typealias Input = BingoTable
-    typealias Output = Int
+    struct Output {
+        let allWords: Int
+        let columns: Int
+        let rows: Int
+        let mainDiagonal: Int
+        let inverseDiagonal: Int
 
-    func execute(with input: BingoTable) async throws -> Int {
+        var total: Int {
+            allWords + columns + rows + mainDiagonal + inverseDiagonal
+        }
+    }
+
+
+    func execute(with input: BingoTable) async throws -> Output {
         let allWordsPoints = input.table.flatMap { $0.map(\.isSelected).filter { $0 } }.count
         let allColumnsPoints = calculateMultipleLists(input.allColumns, tableSize: input.tableSize)
         let allRowPoints = calculateMultipleLists(input.allRows, tableSize: input.tableSize)
         let mainDiagonal = input.mainDiagonal.map(\.isSelected).allSatisfy { $0 } ? 7 : 0
         let inverseDiagonal = input.inverseDiagonal.map(\.isSelected).allSatisfy { $0 } ? 7 : 0
-        return allWordsPoints + allColumnsPoints + allRowPoints + mainDiagonal + inverseDiagonal
+
+        return Output(
+            allWords: allWordsPoints,
+            columns: allColumnsPoints,
+            rows: allRowPoints,
+            mainDiagonal: mainDiagonal,
+            inverseDiagonal: inverseDiagonal
+        )
     }
 
     private func calculateMultipleLists(_ input: [[BingoTable.Word]]?, tableSize: Int) -> Int {
