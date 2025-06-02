@@ -9,9 +9,21 @@ import SwiftUI
 
 struct DetailButton: View {
     let text: String
-    let tint: Color = .white
-    let foregroundColor: Color = .accent
+    let tint: Color
+    let foregroundColor: Color
     var action: () -> Void
+
+    init(
+        text: String,
+        tint: Color = .white,
+        foregroundColor: Color = .accent,
+        action: @escaping () -> Void
+    ) {
+        self.text = text
+        self.tint = tint
+        self.foregroundColor = foregroundColor
+        self.action = action
+    }
 
     var body: some View {
         Button(action: action) {

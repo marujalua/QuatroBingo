@@ -13,17 +13,23 @@ struct NameStep: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            
+            DetailHeader(
+                title: "¡bingo!",
+                description: "escolha um emoji e um apelido para te representar"
+            )
 
             Spacer().frame(height: 32)
 
-            DetailButton(text: "criar sala") {
-                store.send(.createMatch, animation: .linear)
-            }
 
-            DetailButton(text: "buscar sala") {
+
+            DetailButton(
+                text: "entrar no jogo",
+                tint: Color.secondaryAccent,
+                foregroundColor: Color.accent
+            ) {
                 store.send(.searchMatch, animation: .linear)
             }
+            .shadow(radius: 3)
         }
         .foregroundStyle(.white)
         .fontDesign(.rounded)
