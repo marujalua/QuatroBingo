@@ -12,31 +12,33 @@ struct BingoView: View {
 
     var body: some View {
         StatusView(status: store.status) {
-            HStack {
-                LogView(
-                    store: store.scope(state: \.log, action: \.log)
-                )
-                Spacer()
-                BoardView(
-                    store: store.scope(
-                        state: \.board,
-                        action: \.board
+            switch store.orientation {
+            case .landscapeLeft:
+                HStack {
+                    LogView(
+                        store: store.scope(state: \.log, action: \.log)
                     )
-                )
+                    Spacer()
+                    BoardView(
+                        store: store.scope(
+                            state: \.board,
+                            action: \.board
+                        )
+                    )
+                }
+            case .landscapeRight:
+                    Text("LSR")
+            default:
+                    Text("portrait")
             }
+
         } failure: {
             ErrorView {
                 store.send(.onAppear)
             }
         }
         .padding()
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: [.red, .yellow, .green, .blue, .purple, .red]),
-                startPoint: .topTrailing,
-                endPoint: .bottomLeading
-            )
-            )
+        .animatedBackground()
         .toolbarVisibility(.hidden, for: .navigationBar)
         .onAppear {
             store.send(.onAppear)
@@ -49,7 +51,7 @@ struct BingoView: View {
         BingoView(
             store: Store(
                 initialState: BingoFeature.State(
-                    ids: .init(bingo: "", player: "", match: "")
+                    ids: .init(bingo: "dm7Pmecx31VTkCKQcFA1", player: "F66F3F47-ED8F-4F23-97C0-65A6A492839A", match: "D9FA1AC0-2D6A-4EA0-8DDF-35E0050A5E33")
                 ),
                 reducer: BingoFeature.init
             )
