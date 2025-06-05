@@ -6,7 +6,7 @@
 //
 
 import ComposableArchitecture
-import Foundation
+import UIKit
 
 @Reducer
 struct BingoFeature {
@@ -19,6 +19,7 @@ struct BingoFeature {
         var log = LogFeature.State(name: "", logs: [])
         var score = ScoreFeature.State(players: [:])
         var status: Status = .loading
+        var orientation: UIDeviceOrientation = UIDevice.current.orientation
     }
 
     enum Action {
@@ -28,6 +29,7 @@ struct BingoFeature {
         case updateStatus(Status)
         case onAppear
         case listenError
+        case updateOrientation(UIDeviceOrientation)
     }
 
     enum CancelID { case listener }
@@ -52,7 +54,7 @@ struct BingoFeature {
                 return Effect.concatenate(
                     requestBingoEffect(state: &state),
                     listenToMatchEffect(state: &state)
-                )
+                ).merge(with: updateOrientationEffect(state: &state))
             case let .updateStatus(status):
                 state.status = status
                 return .none
@@ -67,6 +69,10 @@ struct BingoFeature {
                     point: CGPoint(x: x, y: y),
                     ids: state.ids
                 )
+            case let .updateOrientation(orientation):
+                state.orientation = orientation
+                return .none
+                
             default:
                 return .none
             }
@@ -104,6 +110,16 @@ struct BingoFeature {
                 actionPoint: point,
                 ids: ids
             )
+        }
+    }
+    
+    private func updateOrientationEffect(state: inout State) -> EffectOf<BingoFeature> {
+        return .publisher {
+            NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification).compactMap { _ in
+                UIDevice.current.orientation
+            }.map { orientation in
+                Action.updateOrientation(orientation)
+            }
         }
     }
 }
