@@ -21,11 +21,7 @@ struct DetailView: View {
     var body: some View {
         StatusView(status: store.status) {
             if let bingo = store.bingo?.model {
-                VStack {
-                    bingoGrid(bingo: bingo)
-                    Spacer()
-                    steps
-                }
+                steps
             }
         } failure: {
             ErrorView {
@@ -36,7 +32,7 @@ struct DetailView: View {
             store.send(.retrieveBingo)
         }
         .navigationTitle(store.bingo?.model.name ?? "")
-        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarBackground(.hidden, for: .navigationBar)
         .sheet(
             isPresented: $store.enterMatchErrorDisplayed.sending(\.enterMatchErrorDisplayed)
         ) {
@@ -45,6 +41,7 @@ struct DetailView: View {
             }
             .presentationDetents([.fraction(0.4)])
         }
+        .animatedBackground()
     }
 
     @ViewBuilder
@@ -53,17 +50,18 @@ struct DetailView: View {
 
         switch store.step {
         case .name:
-            NameStep(store: store)
+            NameStep(store: store) {
+                self.store.send(.enterMatch)
+            }
                 .transition(.slide)
         case .search:
-            SearchMatchStep(store: store) {
-                self.store.send(.enterMatch)
-            }
+            SearchMatchStep(store: store)
                 .transition(.slide)
         case .create:
-            CreateMatchStep(store: store) {
-                self.store.send(.enterMatch)
-            }
+            CreateMatchStep(store: store)
+                .transition(.slide)
+        case .select:
+            SelectionStep(store: store)
                 .transition(.slide)
         }
     }

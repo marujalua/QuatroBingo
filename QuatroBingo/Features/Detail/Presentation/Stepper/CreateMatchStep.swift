@@ -10,7 +10,6 @@ import ComposableArchitecture
 
 struct CreateMatchStep: View {
     @Bindable var store: StoreOf<StepperFeature>
-    var enterMatch: () -> Void
 
     var body: some View {
         VStack {
@@ -18,7 +17,7 @@ struct CreateMatchStep: View {
                 .textFieldStyle(.roundedBorder)
 
             Button {
-                enterMatch()
+                store.send(.createMatch, animation: .linear)
             } label: {
                 Text("Criar partida")
                     .frame(maxWidth: .infinity, alignment: .center)

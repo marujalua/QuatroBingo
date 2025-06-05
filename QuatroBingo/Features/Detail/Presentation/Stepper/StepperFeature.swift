@@ -14,11 +14,12 @@ struct StepperFeature {
     @ObservableState
     struct State: Equatable {
         var nickname: String = ""
+        var emoji: String = Emoji.randomEmoji()
         var roomId: String = ""
         var step: Step = .name
 
         enum Step {
-            case name, create, search
+            case name, create, search, select
         }
     }
 
@@ -27,6 +28,7 @@ struct StepperFeature {
         case roomIdDidChange(String)
         case createMatch
         case searchMatch
+        case changeEmoji
         case back
     }
 
@@ -40,6 +42,8 @@ struct StepperFeature {
             case .createMatch:
                 state.roomId = uuid().uuidString
                 state.step = .create
+            case .changeEmoji:
+                state.emoji = Emoji.randomEmoji()
             case .searchMatch:
                 state.roomId = ""
                 state.step = .search

@@ -26,6 +26,8 @@ struct HomeView: View {
         .onAppear {
             store.send(.requestBingo)
         }
+        .modifier(AnimatedViewBackgroundModifier())
+        .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
         .navigationTitle("1Bingo")
     }
 }

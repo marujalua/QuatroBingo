@@ -11,7 +11,6 @@ import ComposableArchitecture
 struct SearchMatchStep: View {
     @Bindable var store: StoreOf<StepperFeature>
     @FocusState var isInputActive: Bool
-    var enterMatch: () -> Void
 
     var body: some View {
         VStack {
@@ -20,7 +19,7 @@ struct SearchMatchStep: View {
                 .focused($isInputActive)
 
             Button {
-                enterMatch()
+                store.send(.searchMatch, animation: .linear)
             } label: {
                 Text("Buscar partida")
                     .frame(maxWidth: .infinity, alignment: .center)

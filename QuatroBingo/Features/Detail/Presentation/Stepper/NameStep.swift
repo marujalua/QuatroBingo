@@ -10,9 +10,11 @@ import ComposableArchitecture
 
 struct NameStep: View {
     @Bindable var store: StoreOf<StepperFeature>
+    var enterMatch: () -> Void
 
     var body: some View {
         VStack(alignment: .leading) {
+            Spacer()
             DetailHeader(
                 title: "¡bingo!",
                 description: "escolha um emoji e um apelido para te representar"
@@ -20,14 +22,30 @@ struct NameStep: View {
 
             Spacer().frame(height: 32)
 
+            HStack {
+                Button {
+                    store.send(.changeEmoji)
+                } label: {
+                    Text(store.emoji)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 8)
 
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.white)
+                .buttonBorderShape(.capsule)
+                TextField("apelido", text: $store.nickname.sending(\.valueDidChange))
+                    .textFieldStyle(DetailTextFieldStyle())
+            }
+
+            Spacer().frame(height: 96)
 
             DetailButton(
                 text: "entrar no jogo",
                 tint: Color.secondaryAccent,
                 foregroundColor: Color.accent
             ) {
-                store.send(.searchMatch, animation: .linear)
+                enterMatch()
             }
             .shadow(radius: 3)
         }
@@ -39,9 +57,20 @@ struct NameStep: View {
     }
 }
 
+struct DetailTextFieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+            configuration
+                .padding(.vertical, 12)
+                .padding(.horizontal, 20)
+                .background(.clear)
+                .clipShape(Capsule(style: .circular))
+                .background(Capsule().stroke(style: .init()))
+        }
+}
+
 #Preview {
     NameStep(
         store: Store(initialState: StepperFeature.State(), reducer: StepperFeature.init)
-    )
+    ) {}
     .background(Image("BackgroundExample"))
 }
