@@ -13,6 +13,7 @@ struct SelectionStep: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+            Spacer()
             Text("¡bingo!")
                 .font(.largeTitle)
                 .fontWeight(.black)
@@ -23,15 +24,13 @@ struct SelectionStep: View {
             Spacer().frame(height: 32)
 
             DetailButton(text: "criar sala") {
-                store.send(.createMatch, animation: .linear)
+                store.send(.createMatch, animation: .easeInOut)
             }
 
             DetailButton(text: "buscar sala") {
-                store.send(.searchMatch, animation: .linear)
+                store.send(.searchMatch, animation: .easeInOut)
             }
         }
-        .foregroundStyle(.white)
-        .fontDesign(.rounded)
         .frame(maxWidth: .infinity)
         .padding()
         .padding(.bottom, 8)

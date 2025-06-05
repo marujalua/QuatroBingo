@@ -74,7 +74,8 @@ struct DetailFeature {
                 roomId: state.stepState.roomId,
                 bingo: bingo.id,
                 playerName: state.stepState.nickname,
-                bingoName: bingo.model.name
+                bingoName: bingo.model.name,
+                playerEmoji: state.stepState.emoji
             )
             await send(Action.goToMatch(bingo: bingo.id, match: state.stepState.roomId, player: playerId))
         } catch: { _, send in

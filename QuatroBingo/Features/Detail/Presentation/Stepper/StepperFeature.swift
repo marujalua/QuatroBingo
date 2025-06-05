@@ -16,7 +16,11 @@ struct StepperFeature {
         var nickname: String = ""
         var emoji: String = Emoji.randomEmoji()
         var roomId: String = ""
-        var step: Step = .name
+        var stepStack: [Step] = [.select]
+
+        var step: Step {
+            stepStack.last ?? .select
+        }
 
         enum Step {
             case name, create, search, select
@@ -28,6 +32,7 @@ struct StepperFeature {
         case roomIdDidChange(String)
         case createMatch
         case searchMatch
+        case confirmMatch
         case changeEmoji
         case back
     }
@@ -41,15 +46,19 @@ struct StepperFeature {
                 state.roomId = value
             case .createMatch:
                 state.roomId = uuid().uuidString
-                state.step = .create
+                state.stepStack.append(.create)
             case .changeEmoji:
                 state.emoji = Emoji.randomEmoji()
             case .searchMatch:
-                state.roomId = ""
-                state.step = .search
+                state.stepStack.append(.search)
+            case .confirmMatch:
+                state.stepStack.append(.name)
             case .back:
                 state.roomId = ""
-                state.step = .name
+                state.nickname = ""
+                if state.stepStack.count > 1 {
+                    _ = state.stepStack.popLast()
+                }
             }
             return .none
         }

@@ -50,7 +50,7 @@ actor BingoInteractorImpl: BingoInteractor {
         newMatch.players[ids.player]?.score = newScoreLoaded.total
         newMatch.logs.append(contentsOf: logsToAppended)
         newMatch.logs.sort { lhs, rhs in
-            lhs.time > rhs.time
+            lhs.time.seconds > rhs.time.seconds
         }
 
         try await bingoRepository.updateMatch(ids: ids, match: newMatch)

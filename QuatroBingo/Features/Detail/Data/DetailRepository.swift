@@ -22,9 +22,11 @@ actor DetailRepositoryImpl: DetailRepository {
 
 
     func retrieveMatch(for id: String, at bingo: String) async throws -> Match {
-        try await matchReference(for: id, at: bingo)
+        let reference = try await matchReference(for: id, at: bingo)
             .getDocument()
-            .data(as: Match.self, decoder: decoder)
+
+
+        return try! reference.data(as: Match.self, decoder: decoder)
     }
 
     func retrieveBingo(for id: String) async throws -> IdentifiableModel<Bingo> {

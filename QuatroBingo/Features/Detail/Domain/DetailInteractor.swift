@@ -13,7 +13,8 @@ protocol DetailInteractor: Actor {
         roomId: String,
         bingo: String,
         playerName: String,
-        bingoName: String
+        bingoName: String,
+        playerEmoji: String
     ) async throws -> String
 }
 
@@ -25,10 +26,11 @@ actor DetailInteractorImpl: DetailInteractor {
         roomId: String,
         bingo: String,
         playerName: String,
-        bingoName: String
+        bingoName: String,
+        playerEmoji: String
     ) async throws -> String {
-        let match = try? await repository.retrieveMatch(for: roomId, at: bingo)
-        let player = Player(id: uuid().uuidString, name: playerName, score: 0)
+        let match = try! await repository.retrieveMatch(for: roomId, at: bingo)
+        let player = Player(id: uuid().uuidString, emoji: playerEmoji, name: playerName, score: 0)
 
         if match != nil {
             try await repository.insertPlayer(player, into: roomId, at: bingo)

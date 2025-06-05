@@ -5,6 +5,7 @@
 //  Created by Lua Ferreira de Carvalho on 31/05/25.
 //
 import Dependencies
+import FirebaseCore
 
 actor UpdateLogWorker: Worker {
     @Dependency(\.date) private var currentDate
@@ -38,7 +39,7 @@ actor UpdateLogWorker: Worker {
             "bingou"
         }
 
-        return Match.Log(value: "\(player.name) \(value)", time: currentDate())
+        return Match.Log(value: "\(player.name) \(value)", time: Timestamp(date: currentDate()))
     }
 }
 

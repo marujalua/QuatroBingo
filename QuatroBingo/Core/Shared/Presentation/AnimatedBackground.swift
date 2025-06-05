@@ -15,10 +15,10 @@ extension View {
 
 struct AnimatedViewBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
-        content
-            .background(
-                AnimatedBackgroundView()
-            )
+        ZStack {
+            AnimatedBackgroundView().frame(maxWidth: .infinity, maxHeight: .infinity)
+            content
+        }
     }
 }
 
