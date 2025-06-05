@@ -13,34 +13,36 @@ struct SearchMatchStep: View {
     @FocusState var isInputActive: Bool
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
+            Button {
+                store.send(.back, animation: .easeInOut)
+            } label: {
+                Label("Voltar", systemImage: "chevron.left")
+                    .labelStyle(.iconOnly)
+            }
+
+            Spacer()
+
+            DetailHeader(
+                title: "¡bingo!",
+                description: "compartilhe o código para convidar seus amigos"
+            )
+
+            Spacer().frame(height: 32)
             TextField("Código da partida", text: $store.roomId.sending(\.roomIdDidChange))
-                .textFieldStyle(.roundedBorder)
+                .textFieldStyle(DetailTextFieldStyle())
                 .focused($isInputActive)
 
-            Button {
-                store.send(.searchMatch, animation: .linear)
-            } label: {
-                Text("Buscar partida")
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(.purple)
-            .disabled(store.nickname.isEmpty || store.roomId.isEmpty)
+            Spacer().frame(height: 32)
 
-            Button {
-                store.send(.back, animation: .linear)
-            } label: {
-                Text("Voltar")
-                    .frame(maxWidth: .infinity, alignment: .center)
+            DetailButton(text: "proximo", tint: .secondaryAccent, foregroundColor: Color.accent) {
+                store.send(.confirmMatch, animation: .easeInOut)
             }
-            .buttonStyle(.bordered)
-            .tint(.purple)
+            .disabled(store.roomId.isEmpty)
         }
         .frame(maxWidth: .infinity)
         .padding()
         .padding(.bottom, 8)
-        .background(Color(UIColor.systemBackground))
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()

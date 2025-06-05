@@ -4,6 +4,7 @@
 //
 //  Created by Lua Ferreira de Carvalho on 30/05/25.
 //
+import FirebaseCore
 import Foundation
 
 struct Match: Codable, Equatable {
@@ -13,7 +14,7 @@ struct Match: Codable, Equatable {
 
     struct Log: Codable, Equatable {
         let value: String
-        let time: Date
+        let time: Timestamp
     }
 
     var status: Status

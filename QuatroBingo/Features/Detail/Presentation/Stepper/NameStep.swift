@@ -47,10 +47,9 @@ struct NameStep: View {
             ) {
                 enterMatch()
             }
+            .disabled(store.roomId.isEmpty || store.nickname.isEmpty)
             .shadow(radius: 3)
         }
-        .foregroundStyle(.white)
-        .fontDesign(.rounded)
         .frame(maxWidth: .infinity)
         .padding()
         .padding(.bottom, 8)

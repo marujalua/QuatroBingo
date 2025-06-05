@@ -20,19 +20,22 @@ struct DetailView: View {
 
     var body: some View {
         StatusView(status: store.status) {
-            if let bingo = store.bingo?.model {
-                steps
-            }
+            steps
+                .foregroundStyle(.white)
+                .fontDesign(.rounded)
         } failure: {
             ErrorView {
                 store.send(.retrieveBingo)
             }
+            .background(Material.thin)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .padding()
         }
         .onAppear {
             store.send(.retrieveBingo)
         }
         .navigationTitle(store.bingo?.model.name ?? "")
-        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbarVisibility(.hidden, for: .navigationBar)
         .sheet(
             isPresented: $store.enterMatchErrorDisplayed.sending(\.enterMatchErrorDisplayed)
         ) {
@@ -53,37 +56,16 @@ struct DetailView: View {
             NameStep(store: store) {
                 self.store.send(.enterMatch)
             }
-                .transition(.slide)
+            .transition(.push(from: .trailing).animation(.easeInOut))
         case .search:
             SearchMatchStep(store: store)
-                .transition(.slide)
+                .transition(.push(from: .trailing).animation(.easeInOut))
         case .create:
             CreateMatchStep(store: store)
-                .transition(.slide)
+                .transition(.push(from: .trailing).animation(.easeInOut))
         case .select:
             SelectionStep(store: store)
-                .transition(.slide)
-        }
-    }
-
-    @ViewBuilder
-    private func bingoGrid(bingo: Bingo) -> some View {
-        ScrollView {
-            LazyVGrid(columns: columnLayout, spacing: 4) {
-                ForEach(Array(bingo.words.enumerated()), id: \.offset) { _, word in
-                    ZStack {
-                        Rectangle().foregroundStyle(Color.purple.opacity(0.6))
-                        Text(word)
-                            .font(.system(size: 10))
-                            .bold()
-                            .foregroundStyle(Color.white)
-                            .padding()
-                    }
-                    .aspectRatio(1, contentMode: .fit)
-                }
-            }
-            .clipShape(RoundedRectangle(cornerSize: .init(width: 8, height: 8)))
-            .padding()
+                .transition(.push(from: .trailing).animation(.easeInOut))
         }
     }
 }
@@ -92,7 +74,7 @@ struct DetailView: View {
     NavigationStack {
         DetailView(
             store: Store(
-                initialState: DetailFeature.State(id: "id"),
+                initialState: DetailFeature.State(id: "dm7Pmecx31VTkCKQcFA1"),
                 reducer: { DetailFeature() }
             )
         )

@@ -12,32 +12,41 @@ struct CreateMatchStep: View {
     @Bindable var store: StoreOf<StepperFeature>
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
+            Button {
+                store.send(.back, animation: .easeInOut)
+            } label: {
+                Label("Voltar", systemImage: "chevron.left")
+                    .labelStyle(.iconOnly)
+            }
+
+            Spacer()
+
+            DetailHeader(
+                title: "¡bingo!",
+                description: "compartilhe o código para convidar seus amigos"
+            )
+
+            Spacer().frame(height: 32)
+
             TextField("Código da partida", text: .constant(store.roomId))
-                .textFieldStyle(.roundedBorder)
+                .textFieldStyle(DetailTextFieldStyle())
 
-            Button {
-                store.send(.createMatch, animation: .linear)
-            } label: {
-                Text("Criar partida")
-                    .frame(maxWidth: .infinity, alignment: .center)
+            HStack {
+                DetailButton(text: "copiar") {}
+                Spacer().frame(width: 16)
+                DetailButton(text: "compartilhar") {}
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.purple)
-            .disabled(store.nickname.isEmpty || store.roomId.isEmpty)
 
-            Button {
-                store.send(.back, animation: .linear)
-            } label: {
-                Text("Voltar")
-                    .frame(maxWidth: .infinity, alignment: .center)
+            Spacer().frame(height: 32)
+
+            DetailButton(text: "proximo", tint: .secondaryAccent, foregroundColor: Color.accent) {
+                store.send(.confirmMatch, animation: .easeInOut)
             }
-            .buttonStyle(.bordered)
-            .tint(.purple)
+            .disabled(store.roomId.isEmpty)
         }
         .frame(maxWidth: .infinity)
         .padding()
         .padding(.bottom, 8)
-        .background(Color(UIColor.systemBackground))
     }
 }
