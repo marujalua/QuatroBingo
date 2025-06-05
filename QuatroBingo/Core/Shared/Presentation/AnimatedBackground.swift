@@ -15,10 +15,10 @@ extension View {
 
 struct AnimatedViewBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
-        content
-            .background(
-                AnimatedBackgroundView()
-            )
+        ZStack {
+            AnimatedBackgroundView().frame(maxWidth: .infinity, maxHeight: .infinity)
+            content
+        }
     }
 }
 
@@ -34,24 +34,25 @@ struct AnimatedBackgroundView: View {
     @State var data: [BlobData] = defaultBlobs
 
     var body: some View {
-        ZStack {
-            TimelineView(.animation) { timeline in
-                Canvas { context, size in
-                    context.addFilter(.blur(radius: blurRadius))
-                    data.forEach { element in
-                        context.drawLayer { ctx in
-                            let path = element.shape.path(in: CGRect(origin: CGPoint(x: 0, y: 0), size: element.size))
-                                .rotated(by: element.angleInfo.current)
-                            ctx.translateBy(x: element.positionInfo.current.x, y: element.positionInfo.current.y)
-                            ctx.fill(path, with: .color(element.color))
-                        }
+        TimelineView(.animation) { timeline in
+            Canvas { context, size in
+                context.addFilter(.blur(radius: blurRadius))
+                data.forEach { element in
+                    context.drawLayer { ctx in
+                        let path = element.shape.path(in: CGRect(origin: CGPoint(x: 0, y: 0), size: element.size))
+                            .rotated(by: element.angleInfo.current)
+                        ctx.translateBy(x: element.positionInfo.current.x, y: element.positionInfo.current.y)
+                        ctx.fill(path, with: .color(element.color))
                     }
                 }
-                .ignoresSafeArea()
-                .background(backGroundColor)
-                .onChange(of: timeline.date) { _, _ in
-                    updateState()
-                }
+            }
+            .ignoresSafeArea()
+            .background(backGroundColor)
+            .onChange(of: timeline.date) { _, _ in
+                updateState()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                timeline.invalidateTimelineContent()
             }
         }
     }
