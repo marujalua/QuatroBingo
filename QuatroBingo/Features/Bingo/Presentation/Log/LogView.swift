@@ -16,15 +16,7 @@ struct LogView: View {
             ScrollView {
                 LazyVStack(alignment: .leading) {
                     ForEach(Array(store.logs.enumerated()), id: \.offset) { _, log in
-                        HStack(alignment: .center) {
-                            Text(log.value)
-                                .foregroundStyle(Color.black)
-                                .font(.system(size: 12))
-                        }
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color.white.opacity(0.4))
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                        LogCell(log: log)
                     }
                 }
             }

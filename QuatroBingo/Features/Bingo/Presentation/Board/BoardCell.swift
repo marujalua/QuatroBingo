@@ -20,10 +20,9 @@ struct BoardCell: View {
 
     var body: some View {
         VStack {
-            Text(word.value)
+            Text("\(word.isSelected ? "✅" : "") \(word.value)")
                 .foregroundStyle(foregroundColor)
                 .lineLimit(3)
-                .fontDesign(.serif)
                 .font(.system(size: 10))
         }
         .padding(.horizontal, 6)

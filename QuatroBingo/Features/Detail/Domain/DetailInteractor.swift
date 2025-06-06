@@ -29,7 +29,7 @@ actor DetailInteractorImpl: DetailInteractor {
         bingoName: String,
         playerEmoji: String
     ) async throws -> String {
-        let match = try! await repository.retrieveMatch(for: roomId, at: bingo)
+        let match = try await repository.retrieveMatch(for: roomId, at: bingo)
         let player = Player(id: uuid().uuidString, emoji: playerEmoji, name: playerName, score: 0)
 
         if match != nil {

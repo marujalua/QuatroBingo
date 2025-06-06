@@ -39,7 +39,7 @@ actor UpdateLogWorker: Worker {
             "bingou"
         }
 
-        return Match.Log(value: "\(player.name) \(value)", time: Timestamp(date: currentDate()))
+        return Match.Log(value: "\(player.emoji) \(player.name) \(value)", time: Timestamp(date: currentDate()))
     }
 }
 

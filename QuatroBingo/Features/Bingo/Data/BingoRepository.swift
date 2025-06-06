@@ -30,7 +30,7 @@ actor BingoRepositoryImpl: BingoRepository {
             .snapshotPublisher()
             .tryMap { document in
                 @Dependency(Firestore.Decoder.self) var decoder
-                return try! document.data(as: Match.self, decoder: decoder)
+                return try document.data(as: Match.self, decoder: decoder)
             }
             .values
     }

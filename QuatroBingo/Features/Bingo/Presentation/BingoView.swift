@@ -37,6 +37,7 @@ struct BingoView: View {
                 store.send(.onAppear)
             }
         }
+        .fontDesign(.rounded)
         .padding()
         .animatedBackground()
         .toolbarVisibility(.hidden, for: .navigationBar)

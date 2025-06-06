@@ -26,7 +26,7 @@ actor DetailRepositoryImpl: DetailRepository {
             .getDocument()
 
 
-        return try! reference.data(as: Match.self, decoder: decoder)
+        return try reference.data(as: Match.self, decoder: decoder)
     }
 
     func retrieveBingo(for id: String) async throws -> IdentifiableModel<Bingo> {
