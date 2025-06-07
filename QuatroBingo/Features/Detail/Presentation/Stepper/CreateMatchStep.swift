@@ -45,7 +45,7 @@ struct CreateMatchStep: View {
                     HStack {
                         DetailButton(text: "copiar") { store.send(.copy(\.match)) }
                         Spacer().frame(width: 16)
-                        DetailButton(text: "compartilhar") { store.send(.share(\.match)) }
+                        DetailButton(text: "compartilhar") { store.send(.share) }
                     }
                 }
 

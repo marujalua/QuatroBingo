@@ -14,18 +14,18 @@ struct ShareViewHolder<Content: View>: View {
 
     var body: some View {
         content(store)
-            .sheet(item: $store.shareCode.sending(\.shareIsVisibible), id: \.self) { code in
-                ActivityView(text: code)
+            .sheet(item: $store.shareCode.sending(\.shareIsVisibible)) { data in
+                ActivityView(data: data)
             }
     }
 }
 
 
 struct ActivityView: UIViewControllerRepresentable {
-    let text: String
+    let data: ShareFeature.State.ShareData
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityView>) -> UIActivityViewController {
-        return UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        return UIActivityViewController(activityItems:[data.message, data.url], applicationActivities: nil)
     }
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityView>) {}

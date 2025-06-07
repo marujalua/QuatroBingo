@@ -15,9 +15,11 @@ struct ShareView: View {
             Text(store.ids.match)
                 .font(.title.bold())
             HStack {
-                DetailButton(text: "️✍ copiar") { store.send(.copy(\.match)) }
+                DetailButton(text: "️✍ copiar") { store.send(.copy(\.match))
+                }
                 Spacer().frame(width: 32)
-                DetailButton(text: "🚚️ compartilhar") { store.send(.share(\.match)) }
+                DetailButton(text: "🚚️ compartilhar") { store.send(.share)
+                }
             }
             .padding(.horizontal, 64)
         }

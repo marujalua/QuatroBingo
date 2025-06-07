@@ -11,17 +11,26 @@ import UIKit
 @Reducer
 struct ShareFeature {
     @Dependency(\.pasteboard) private var pasteboard
+    @Dependency(\.shareMessageWorker) private var messageWorker
+    @Dependency(\.uuid) private var uuid
+    @Dependency(\.shareUrlWorker) private var urlBuilder
 
     @ObservableState
     struct State: Equatable {
         let ids: IDs
-        var shareCode: String?
+        var shareCode: ShareData?
+
+        struct ShareData: Identifiable, Equatable {
+            let id: UUID
+            let message: String
+            let url: URL
+        }
     }
 
     enum Action {
         case copy(KeyPath<IDs, String>)
-        case share(KeyPath<IDs, String>)
-        case shareIsVisibible(String?)
+        case share
+        case shareIsVisibible(State.ShareData?)
     }
 
     var body: some ReducerOf<Self> {
@@ -33,8 +42,15 @@ struct ShareFeature {
                         pasteboard.string = state.ids[keyPath: keypath]
                     }
                 }
-            case let .share(keypath):
-                return .send(.shareIsVisibible(state.ids[keyPath: keypath]))
+            case .share:
+                return .run {[state] send in
+                    let message = try await messageWorker.execute(with: state.ids)
+                    let url = try await urlBuilder.execute(with: state.ids)
+
+                    let data = State.ShareData(id: uuid(), message: message, url: url)
+
+                    await send(.shareIsVisibible(data))
+                }
             case let .shareIsVisibible(value):
                 state.shareCode = value
                 return .none
