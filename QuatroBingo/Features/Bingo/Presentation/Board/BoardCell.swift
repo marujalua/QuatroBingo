@@ -11,11 +11,11 @@ struct BoardCell: View {
     let word: BingoTable.Word
 
     private var foregroundColor: Color {
-        word.isSelected ? .black : .white
+        .black
     }
 
     private var backgroundColor: Color {
-        word.isSelected ? .white : .black.opacity(0.3)
+        word.isSelected ? .white.opacity(0.85) : .white.opacity(0.2)
     }
 
     var body: some View {
@@ -26,8 +26,10 @@ struct BoardCell: View {
                 .font(.system(size: 10))
         }
         .padding(.horizontal, 6)
+        .preferredColorScheme(.light)
         .frame(width: 100, height: 70, alignment: .center)
         .background(backgroundColor)
+        .background(Material.thin)
         .clipShape(RoundedRectangle(cornerRadius: 6))
     }
 }

@@ -13,18 +13,22 @@ struct HomeBingoItem: View {
     var body: some View {
         VStack {
             Text(bingo.name)
+                .font(.title2.bold())
             HStack {
                 ForEach(Array(bingo.wordsPreview.enumerated()), id: \.offset) { _, word in
                     Text(word)
+                        .multilineTextAlignment(.center)
                         .frame(width: 96, height: 96, alignment: .center)
                         .background {
-                            Color.white.opacity(0.2)
+                            Color.white.opacity(0.15)
                         }
                         .clipShape(RoundedRectangle(cornerRadius: 4))
                 }
             }
+            Spacer().frame(height: 16)
             HStack {
                 Text("\(bingo.wordCount) palavras")
+                    .font(.subheadline)
                 Spacer()
             }
         }
@@ -32,7 +36,23 @@ struct HomeBingoItem: View {
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
         .padding()
-        .background(Color.purple)
+
+        .background(Color.accentColor.opacity(0.6))
+        .background(Material.ultraThin)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
+}
+
+#Preview {
+    HomeBingoItem(
+        bingo: BingoViewModel(
+            id: "1234",
+            name: "WWDC",
+            wordsPreview: ["iOS 26", "Craig Federighi", "Xcode no iPad"],
+            wordCount: 120
+        )
+    )
+    .fontDesign(.rounded)
+        .padding()
+        .animatedBackground()
 }

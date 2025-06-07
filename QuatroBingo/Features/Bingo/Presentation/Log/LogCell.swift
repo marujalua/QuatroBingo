@@ -19,6 +19,7 @@ struct LogCell: View {
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
         .background(Material.thin)
+        .preferredColorScheme(.light)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }
