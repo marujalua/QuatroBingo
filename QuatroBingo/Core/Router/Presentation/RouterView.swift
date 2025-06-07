@@ -27,5 +27,8 @@ struct RouterView: View {
                 BingoView(store: store)
             }
         }
+        .onOpenURL { url in
+            store.send(.url(url))
+        }
     }
 }

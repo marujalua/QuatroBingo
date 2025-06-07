@@ -10,6 +10,7 @@ import ComposableArchitecture
 @Reducer
 struct StepperFeature {
     @Dependency(\.uuid) private var uuid
+    @Dependency(\.dismiss) private var dismiss
 
     @ObservableState
     struct State: Equatable {
@@ -58,6 +59,10 @@ struct StepperFeature {
                 state.nickname = ""
                 if state.stepStack.count > 1 {
                     _ = state.stepStack.popLast()
+                } else {
+                    return .run { send in
+                        await dismiss()
+                    }
                 }
             }
             return .none

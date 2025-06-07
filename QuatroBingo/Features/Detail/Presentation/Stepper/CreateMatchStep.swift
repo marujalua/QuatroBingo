@@ -16,7 +16,10 @@ struct CreateMatchStep: View {
             Button {
                 store.send(.back, animation: .easeInOut)
             } label: {
-                Label("Voltar", systemImage: "chevron.left")
+                Label(
+                    "Voltar",
+                    systemImage: store.stepStack.count > 1 ? "chevron.left" : "xmark"
+                )
                     .labelStyle(.iconOnly)
             }
 
