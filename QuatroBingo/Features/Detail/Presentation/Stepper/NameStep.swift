@@ -14,6 +14,13 @@ struct NameStep: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+            Button {
+                store.send(.back, animation: .easeInOut)
+            } label: {
+                Label("Voltar", systemImage: "chevron.left")
+                    .labelStyle(.iconOnly)
+            }
+            
             Spacer()
             DetailHeader(
                 title: "¡bingo!",

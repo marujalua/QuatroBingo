@@ -27,7 +27,7 @@ struct BingoView: View {
                     )
                 }
             case .landscapeRight:
-                    Text("LSR")
+                ShareView(store: store.scope(state: \.shareIds, action: \.share))
             default:
                     Text("portrait")
             }

@@ -74,7 +74,7 @@ struct DetailView: View {
     NavigationStack {
         DetailView(
             store: Store(
-                initialState: DetailFeature.State(id: "dm7Pmecx31VTkCKQcFA1"),
+                initialState: DetailFeature.State(id: "dm7Pmecx31VTkCKQcFA1", enterMatchErrorDisplayed: true),
                 reducer: { DetailFeature() }
             )
         )

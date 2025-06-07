@@ -32,11 +32,19 @@ struct CreateMatchStep: View {
             TextField("Código da partida", text: .constant(store.roomId))
                 .textFieldStyle(DetailTextFieldStyle())
 
-            HStack {
-                DetailButton(text: "copiar") {}
-                Spacer().frame(width: 16)
-                DetailButton(text: "compartilhar") {}
-            }
+            ShareViewHolder(
+                store: Store(
+                    initialState: ShareFeature.State(ids: .init(bingo: "", player: "", match: store.roomId)),
+                    reducer: {
+                        ShareFeature()
+                    })
+            ) { store in
+                    HStack {
+                        DetailButton(text: "copiar") { store.send(.copy(\.match)) }
+                        Spacer().frame(width: 16)
+                        DetailButton(text: "compartilhar") { store.send(.share(\.match)) }
+                    }
+                }
 
             Spacer().frame(height: 32)
 

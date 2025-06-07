@@ -14,18 +14,23 @@ struct BingoFeature {
 
     @ObservableState
     struct State: Equatable {
-        let ids: IDs
+        var shareIds: ShareFeature.State
         var board = BoardFeature.State()
         var log = LogFeature.State(name: "", logs: [])
         var score = ScoreFeature.State(players: [:])
         var status: Status = .loading
         var orientation: UIDeviceOrientation = UIDevice.current.orientation
+
+        init(ids: IDs) {
+            self.shareIds = .init(ids: ids)
+        }
     }
 
     enum Action {
         case board(BoardFeature.Action)
         case log(LogFeature.Action)
         case score(ScoreFeature.Action)
+        case share(ShareFeature.Action)
         case updateStatus(Status)
         case onAppear
         case listenError
@@ -47,10 +52,14 @@ struct BingoFeature {
             ScoreFeature()
         }
 
+        Scope(state: \.shareIds, action: \.share) {
+            ShareFeature()
+        }
+
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.status = .loading
+                state.status = Status.loading
                 return Effect.concatenate(
                     requestBingoEffect(state: &state),
                     listenToMatchEffect(state: &state)
@@ -67,7 +76,7 @@ struct BingoFeature {
                     match: Match(status: .running, name: state.log.name, players: state.score.players, logs: state.log.logs),
                     table: table,
                     point: CGPoint(x: x, y: y),
-                    ids: state.ids
+                    ids: state.shareIds.ids
                 )
             case let .updateOrientation(orientation):
                 state.orientation = orientation
@@ -81,7 +90,7 @@ struct BingoFeature {
 
     private func listenToMatchEffect(state: inout State) -> EffectOf<BingoFeature> {
         return .run {[state] send in
-            let sequence = await bingoInteractor.watchMatch(bingo: state.ids.bingo, match: state.ids.match)
+            let sequence = await bingoInteractor.watchMatch(bingo: state.shareIds.ids.bingo, match: state.shareIds.ids.match)
 
             for try await match in sequence {
                 await send(.log(.updateLogs(match.logs)))
@@ -94,7 +103,7 @@ struct BingoFeature {
 
     private func requestBingoEffect(state: inout State) -> EffectOf<BingoFeature> {
         return .run {[state] send in
-            let table = try await bingoInteractor.retrieveBingo(bingo: state.ids.bingo)
+            let table = try await bingoInteractor.retrieveBingo(bingo: state.shareIds.ids.bingo)
             await send(.board(.loadTable(table)))
             await send(.updateStatus(.success))
         } catch: {_ , send in
