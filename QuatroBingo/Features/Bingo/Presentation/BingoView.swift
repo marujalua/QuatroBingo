@@ -26,19 +26,21 @@ struct BingoView: View {
                         )
                     )
                 }
+                .padding()
             case .landscapeRight:
                 ShareView(store: store.scope(state: \.shareIds, action: \.share))
+                    .padding()
             default:
-                    Text("portrait")
+                ScoreView(store: store.scope(state: \.score, action: \.score))
             }
 
         } failure: {
             ErrorView {
                 store.send(.onAppear)
             }
+            .padding()
         }
         .fontDesign(.rounded)
-        .padding()
         .animatedBackground()
         .toolbarVisibility(.hidden, for: .navigationBar)
         .onAppear {
