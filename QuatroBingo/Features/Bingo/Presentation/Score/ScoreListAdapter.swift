@@ -20,13 +20,13 @@ enum ScoreListAdapter {
                     name: player.element.name,
                     score: player.element.score.formatted(),
                     isHighlighted: player.offset < dividerPosition + 1,
-                    place: player.offset.formatted()
+                    place: (player.offset + 1).formatted()
                 )
             )
         }
-        
-        result.insert(.divider(UUID().uuidString), at: 2)
-
+        if result.count >= 3 {
+            result.insert(.divider(UUID().uuidString), at: 2)
+        }
         return result
     }
 }
