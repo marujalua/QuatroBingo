@@ -30,8 +30,12 @@ struct BingoView: View {
             case .landscapeRight:
                 ShareView(store: store.scope(state: \.shareIds, action: \.share))
                     .padding()
-            default:
+            case .portrait:
                 ScoreView(store: store.scope(state: \.score, action: \.score))
+            default:
+                Image(.luffyLu)
+                    .resizable()
+                    
             }
 
         } failure: {
