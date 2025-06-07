@@ -29,7 +29,7 @@ struct BingoView: View {
             case .landscapeRight:
                 ShareView(store: store.scope(state: \.shareIds, action: \.share))
             default:
-                    Text("portrait")
+                ScoreView(store: store.scope(state: \.score, action: \.score))
             }
 
         } failure: {
