@@ -18,7 +18,6 @@ struct RotationExplainer: View {
                 .font(.title2.bold())
         }
         .buttonBorderShape(.circle)
-        .buttonStyle(.borderedProminent)
         .sheet(isPresented: $isVisible) {
             NavigationStack {
                 List {
