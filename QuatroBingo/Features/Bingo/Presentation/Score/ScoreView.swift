@@ -16,10 +16,16 @@ struct ScoreView: View {
     }
     var body: some View {
         VStack(spacing: -16) {
+            ZStack(alignment: .topTrailing) {
                 Image(.scoreForeground)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .background(AnimatedScoreBackgroundView())
+                RotationExplainer(isVisible: false)
+                    .padding(32)
+                    .tint(.secondaryAccent)
+                    .buttonStyle(.bordered)
+            }
             ScrollView {
                 VStack(spacing: 16) {
                     ForEach(score) { item in
