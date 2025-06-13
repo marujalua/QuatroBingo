@@ -1,5 +1,5 @@
 {
-  "originHash" : "01dddc6a40b4999d1d6beea8c53a83074ff08c3647966520ff13b0b031dec5ae",
+  "originHash" : "43e130cdddef00dc2b562e4fe36be47c7b9c8321cc6f739d0964876c02caf1e4",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -148,10 +148,10 @@
     {
       "identity" : "swift-composable-architecture",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-composable-architecture",
+      "location" : "https://github.com/MarcosChevis/swift-composable-architecture",
       "state" : {
-        "revision" : "6574de2396319a58e86e2178577268cb4aeccc30",
-        "version" : "1.20.2"
+        "branch" : "main",
+        "revision" : "d020cc28b3a35e9531b2773db9579152b0e310e8"
       }
     },
     {
@@ -195,8 +195,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-navigation",
       "state" : {
-        "revision" : "db6bc9dbfed001f21e6728fd36413d9342c235b4",
-        "version" : "2.3.0"
+        "revision" : "ae208d1a5cf33aee1d43734ea780a09ada6e2a21",
+        "version" : "2.3.1"
       }
     },
     {

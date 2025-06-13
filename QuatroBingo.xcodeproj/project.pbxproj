@@ -437,7 +437,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QuatroBingo/Preview Content\"";
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = QRB568C47A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuatroBingo/Info.plist;
@@ -454,7 +454,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 3.14;
-				PRODUCT_BUNDLE_IDENTIFIER = paula.quatro.bingo.agora.vai;
+				PRODUCT_BUNDLE_IDENTIFIER = paula.quatro.bingo.agora.vai1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -470,7 +470,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"QuatroBingo/Preview Content\"";
-				DEVELOPMENT_TEAM = X54K5PJVGU;
+				DEVELOPMENT_TEAM = QRB568C47A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuatroBingo/Info.plist;
@@ -487,7 +487,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 3.14;
-				PRODUCT_BUNDLE_IDENTIFIER = paula.quatro.bingo.agora.vai;
+				PRODUCT_BUNDLE_IDENTIFIER = paula.quatro.bingo.agora.vai1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -611,10 +611,10 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		5B2418D02DE9530D002E8755 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			repositoryURL = "https://github.com/MarcosChevis/swift-composable-architecture";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.20.2;
+				branch = main;
+				kind = branch;
 			};
 		};
 		5B2418D32DE953E4002E8755 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
