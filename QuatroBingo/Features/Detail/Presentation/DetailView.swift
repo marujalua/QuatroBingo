@@ -35,7 +35,6 @@ struct DetailView: View {
             store.send(.retrieveBingo)
         }
         .navigationTitle(store.bingo?.model.name ?? "")
-        .toolbarVisibility(.hidden, for: .navigationBar)
         .sheet(
             isPresented: $store.enterMatchErrorDisplayed.sending(\.enterMatchErrorDisplayed)
         ) {
@@ -44,6 +43,20 @@ struct DetailView: View {
             }
             .presentationDetents([.fraction(0.4)])
         }
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    store.send(.stepChanged(.back), animation: .easeInOut)
+                } label: {
+                    Label(
+                        "Voltar",
+                        systemImage: store.stepState.stepStack.count > 1 ? "chevron.left" : "xmark"
+                    )
+                        .labelStyle(.iconOnly)
+                }
+            }
+        })
+        .navigationBarBackButtonHidden()
         .animatedBackground()
     }
 

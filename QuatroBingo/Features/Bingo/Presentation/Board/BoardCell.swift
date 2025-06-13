@@ -14,8 +14,8 @@ struct BoardCell: View {
         .black
     }
 
-    private var backgroundColor: Color {
-        word.isSelected ? .white.opacity(0.85) : .white.opacity(0.2)
+    private var backgroundColor: Color? {
+        word.isSelected ? .white : nil
     }
 
     var body: some View {
@@ -28,8 +28,9 @@ struct BoardCell: View {
         .padding(.horizontal, 6)
         .preferredColorScheme(.light)
         .frame(width: 100, height: 70, alignment: .center)
-        .background(backgroundColor)
-        .background(Material.thin)
-        .clipShape(RoundedRectangle(cornerRadius: 6))
+        .glassEffect(
+            .regular.interactive().tint(backgroundColor),
+            in: RoundedRectangle(cornerRadius: 6)
+        )
     }
 }

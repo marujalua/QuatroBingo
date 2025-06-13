@@ -9,14 +9,14 @@ import SwiftUI
 
 struct DetailButton: View {
     let text: String
-    let tint: Color
+    let tint: Color?
     let foregroundColor: Color
     var action: () -> Void
 
     init(
         text: String,
-        tint: Color = .white,
-        foregroundColor: Color = .accent,
+        tint: Color? = nil,
+        foregroundColor: Color = .white,
         action: @escaping () -> Void
     ) {
         self.text = text
@@ -28,13 +28,11 @@ struct DetailButton: View {
     var body: some View {
         Button(action: action) {
             Text(text)
-                .padding(.vertical, 4)
                 .font(.body.bold())
                 .frame(maxWidth: .infinity, alignment: .center)
                 .foregroundStyle(foregroundColor)
         }
-        .buttonStyle(.borderedProminent)
-        .tint(tint)
-        .buttonBorderShape(.capsule)
+        .padding(8)
+        .glassEffect(.regular.interactive().tint(tint))
     }
 }

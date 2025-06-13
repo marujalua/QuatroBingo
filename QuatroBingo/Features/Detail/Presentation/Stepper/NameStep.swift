@@ -13,17 +13,7 @@ struct NameStep: View {
     var enterMatch: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Button {
-                store.send(.back, animation: .easeInOut)
-            } label: {
-                Label(
-                    "Voltar",
-                    systemImage: store.stepStack.count > 1 ? "chevron.left" : "xmark"
-                )
-                    .labelStyle(.iconOnly)
-            }
-            
+        VStack(alignment: .leading) {            
             Spacer()
             DetailHeader(
                 title: "¡bingo!",

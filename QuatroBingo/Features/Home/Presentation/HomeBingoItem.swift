@@ -19,10 +19,19 @@ struct HomeBingoItem: View {
                     Text(word)
                         .multilineTextAlignment(.center)
                         .frame(width: 96, height: 96, alignment: .center)
-                        .background {
-                            Color.white.opacity(0.15)
-                        }
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                        .background(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(
+                                    Gradient(
+                                        stops: [
+                                            .init(color: .accentColor, location: 0),
+                                            .init(color: .purple, location: 1)
+                                        ]
+                                    )
+                                )
+//                                .stroke(style: .init())
+                        )
+//                        .clipShape(RoundedRectangle(cornerRadius: 4))
                 }
             }
             Spacer().frame(height: 16)
@@ -36,10 +45,15 @@ struct HomeBingoItem: View {
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
         .padding()
-
-        .background(Color.accentColor.opacity(0.6))
-        .background(Material.ultraThin)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .glassEffect(
+            .regular.interactive().tint(.accentColor.opacity(0.5)),
+            in: RoundedRectangle(
+                cornerRadius: 8
+            )
+        )
+//        .background(Color.accentColor.opacity(0.6))
+//        .background(Material.ultraThin)
+//        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 

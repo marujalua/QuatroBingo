@@ -13,18 +13,7 @@ struct CreateMatchStep: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Button {
-                store.send(.back, animation: .easeInOut)
-            } label: {
-                Label(
-                    "Voltar",
-                    systemImage: store.stepStack.count > 1 ? "chevron.left" : "xmark"
-                )
-                    .labelStyle(.iconOnly)
-            }
-
             Spacer()
-
             DetailHeader(
                 title: "¡bingo!",
                 description: "compartilhe o código para convidar seus amigos"
@@ -34,6 +23,7 @@ struct CreateMatchStep: View {
 
             TextField("Código da partida", text: .constant(store.roomId))
                 .textFieldStyle(DetailTextFieldStyle())
+                .disabled(true)
 
             ShareViewHolder(
                 store: Store(

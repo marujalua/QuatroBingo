@@ -47,4 +47,5 @@ struct BoardView: View {
             }
         )
     )
+    .animatedBackground()
 }

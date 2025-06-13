@@ -14,16 +14,6 @@ struct SearchMatchStep: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Button {
-                store.send(.back, animation: .easeInOut)
-            } label: {
-                Label(
-                    "Voltar",
-                    systemImage: store.stepStack.count > 1 ? "chevron.left" : "xmark"
-                )
-                    .labelStyle(.iconOnly)
-            }
-
             Spacer()
 
             DetailHeader(
